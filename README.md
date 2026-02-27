@@ -14,10 +14,15 @@ Online Yemek Siparişi
 https://getir.com/yemek/
 
 ## **Proje Linkleri:**
-### **Rest API Adresi:**
-### **Web Frontend Adresi**
+#### **Rest API Adresi:**
+#### **Web Frontend Adresi:**
 
 ## **Dokümantasyon**
 Proje dokümantasyonuna aşağıdaki linklerden erişebilirsiniz:
-1. Gereksinim Analizi
-
+1. [Gereksinim Analizi] (https://github.com/muhammettd/yemek-kapimda/blob/main/Muhammet-Dursun-Gereksinimleri.md)
+2. [Rest API Tasarımı]
+3. [Rest API]
+4. [Web Front-End]
+5. [Mobil Front-End]
+6. [Mobil Backend]
+7. [Video Sunum]
