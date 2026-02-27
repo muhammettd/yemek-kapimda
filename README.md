@@ -19,7 +19,7 @@ https://getir.com/yemek/
 
 ## **Dokümantasyon**
 Proje dokümantasyonuna aşağıdaki linklerden erişebilirsiniz:
-1. [Gereksinim Analizi](https://github.com/muhammettd/yemek-kapimda/blob/main/Muhammet-Dursun-Gereksinimleri.md)
+1. [Gereksinim Analizi](https://github.com/muhammettd/yemek-kapimda/blob/main/Muhammet-Dursun/Muhammet-Dursun-Gereksinimleri.md)
 2. [Rest API Tasarımı](link)
 3. [Rest API](link)
 4. [Web Front-End](link)
