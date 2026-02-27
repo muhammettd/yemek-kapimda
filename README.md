@@ -2,7 +2,7 @@
 
 ## **Proje Hakkında:**
 
-<img width="2816" height="1536" alt="yemekkapimda" src="https://github.com/user-attachments/assets/e46b1560-1c03-4b19-bff8-f2c1292bb15b" />
+[image](yemekkapimda.png)
 
 Yemek Kapımda olarak, dumanı tüten pizzalardan doyurucu hamburgerlere, ustasının elinden çıkmış geleneksel dönerden vegan lezzetlere kadar geniş bir yelpazeyi sizin için tek bir platformda buluşturuyoruz.
 Amacımız sadece yemek getirmek değil; sipariş anından teslimata kadar kolay, keyifli ve güvenilir bir deneyim sunmaktır. Kullanıcı dostu arayüzümüz sayesinde saniyeler içinde siparişinizi oluşturabilir, hızlı kurye ağımız ve özel termal taşıma sistemlerimiz sayesinde yemeğinizi restoran sıcaklığında, özenle sunulmuş bir şekilde teslim alabilirsiniz. Siz ne yiyeceğinize karar verin, gerisini 'Yemek Kapımda' hızına ve güvencesine bırakın!
@@ -16,6 +16,10 @@ https://getir.com/yemek/
 ## **Proje Linkleri:**
 #### **Rest API Adresi:**
 #### **Web Frontend Adresi:**
+
+## **Proje Ekibi**
+##### **Grup Adı:** Yemek Kapımda
+##### **Ekip Üyeleri:** Muhammet Dursun
 
 ## **Dokümantasyon**
 Proje dokümantasyonuna aşağıdaki linklerden erişebilirsiniz:
