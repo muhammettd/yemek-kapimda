@@ -57,7 +57,7 @@ Kullanıcı, ad, soyad, email ve şifre bilgilerini kullanarak hesap oluşturabi
   * **API Metodu:** PUT /account/address/{addressId}
 
 
-  * **Açıklama:** Kullanıcının adres bilgilerini güncellmesini sağlar. Kullanıcının daha öncesinde hesabına eklediği ev veya iş adresinin/adreslerinin 
+  * **Açıklama:** Kullanıcının adres bilgilerini güncellemesini sağlar. Kullanıcının daha öncesinde hesabına eklediği ev veya iş adresinin/adreslerinin 
     bilgilerini güncelleyebilir. Güvenlik için giriş yapmış olması gerekir.
 
 
