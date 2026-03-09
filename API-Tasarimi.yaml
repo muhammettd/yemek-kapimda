@@ -283,6 +283,10 @@ components:
           type: string
           description: Kullanıcıların email adresi
           example: "aliyilmaz@gmail.com"
+        password:
+          type: string
+          description: Kullanıcıların şifresi
+          example: "ali123"
 
     Restoran:
       type: object
