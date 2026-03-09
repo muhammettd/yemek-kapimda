@@ -226,7 +226,7 @@ paths:
           required: false
           description: Restoranları sıralamak için kullanılır. Yıldızlara göre sıralamak için 'stars' gönderin.
           schema:
-            type: number
+            type: string
             enum: 
               - stars
           example: "stars"
@@ -314,7 +314,7 @@ components:
           type: integer
           description: Adresin benzersiz kimlik numarası (otomatik olarak atanır)
           example: 2
-        adresTitle:
+        addressTitle:
           type: string
           description: Adresin ev veya iş adresi olduğunu belirtir
           example: "Ev Adresi"
