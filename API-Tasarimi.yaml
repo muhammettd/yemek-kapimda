@@ -1,0 +1,355 @@
+openapi: 3.0.3
+info:
+  title: Yemek Kapımda API
+  version: 1.0.0
+  description: >
+    Bu API, kullanıcların sitemizde bulunan restoranları istediği yemek kategorisine göre veya sipariş vermek
+    istediği restoranları arama yaparak bunları yıldızına göre sıralama veya kategorilerine göre filtreleme 
+    yaparak yemek siparişi verebileceği bir RESTful servistir. CRUD (Create,Read,Update,Delete) işlemlerini destekler.
+    API, JWT Tabanlı kimlik doğrulama ile korunmaktadır.
+  contact:
+    name: Muhammet Dursun
+    email: muhammettdrsn@gmail.com
+
+servers:
+  - url: https://api.vercel.com
+    description: Üretim sunucusu (Production)
+  - url: https://staging-api.vercel.com
+    description: Test sunucusu (Staging)
+  - url: https://localhost:3000
+    description: Yerel geliştirme sunucusu (Development)
+
+tags:
+  - name: Kimlik
+    description: Kullanıcı kayıt olma, giriş, çıkış işlemleri
+  - name: Restoran
+    description: Restoran sıralama, listeleme, filtreleme, yıldız verme
+  - name: Profil
+    description: Profilini görüntüleme, bilgileri güncelleme
+  - name: Adres
+    description: Adresini ekleme, görüntüleme, güncelleme, silme
+    
+security:
+  - BearerAuth: []
+
+paths: 
+
+  /auth/register:
+    post:
+      tags:
+        - Kimlik
+      summary: Üye Ol
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VenueInput'
+      responses:
+        "201":
+          description: Kullanıcı başarıyla kayıt oldu
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VenueInput'
+        "400":
+          description: Geçeriz bilgiler
+          content: 
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+        "409":
+          description: Bu email zaten kayıtlı
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VenueInput'
+  
+  
+  "auth/login:
+    post:
+      tags: 
+        - Kimlik
+      summary: Giriş Yap
+      operationId: loginUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VenueInput'
+      responses:
+        "200":
+          description: Kullanıcı girişi yapıldı.
+          content:
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+        "400":
+          description: Email ve şifre boş bırakılamaz.
+          content:
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+        "401":
+          description: Email veya şifre geçersiz
+          content:
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+
+    "/account/profile/{userId}:
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        description: Kullanıcının benzersiz kimlik numarası
+        schema:
+          type: long
+        example: 1
+      
+      get:
+        tags: 
+          - Profil
+        summary: Kullanıcının profilini getir
+        operationId: getProfileByUserId
+        responses:
+          "200":
+            description: Profil başarıyla getirildi
+            content:
+              application/json:
+                scheme:
+                  $ref: '#/components/schemas/VenueInput'
+
+          "404":
+          description: Kullanıcı bulunamadı
+          content:
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+          "400":
+          description: Girilen id geçersiz
+          content:
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+        put:
+         tags: 
+          - Profil
+        summary: Kullanıcının profil bilgilerini güncelle
+        operationId: updateProfileById
+        responses:
+          "200":
+            description: Profil bilgileri başarıyla güncellendi
+            content:
+              application/json:
+                scheme:
+                  $ref: '#/components/schemas/VenueInput'
+
+          "401":
+            description: Kimlik doğrulama başarısız
+            content:
+              application/json:
+                scheme:
+                  $ref: '#/components/schemas/VenueInput'
+
+          "400":
+            description: Girilen id geçersiz
+            content:
+              application/json:
+                scheme:
+                  $ref: '#/components/schemas/VenueInput'
+
+          "403":
+            description: Bu işlem için yetkiniz geçersiz
+            content:
+              application/json:
+                scheme:
+                  $ref: '#/components/schemas/VenueInput'
+
+           "404":
+          description: Kullanıcı bulunamadı
+          content:
+            application/json:
+              scheme:
+                $ref: '#/components/schemas/VenueInput'
+
+    "/account/address:
+      post:
+        tags: 
+        - Adres
+        summary: Hesaba adres ekle
+        operationId: createAddress
+        requestBody:
+          required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VenueInput'
+        responses:
+
+          "201":
+            description: Adres eklendi.
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Venue'
+
+           "400":
+              description: Geçersiz adres bilgileri
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+
+           "401":
+              description: Önce giriş yapmalısın
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+
+            "403":
+              description: Bu işlem için yetkiniz yetersiz.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Error'
+      
+      "/account/address/{addressId}:
+        parameters:
+          - name: addressId
+            in: path
+            required: true
+            description: Adresin benzersiz kimlik numarası
+            schema:
+              type: long
+        example: 1  
+
+        put:
+          tags: 
+          - Adres
+          summary: Adres bilgilerini güncelle
+          operationId: updateAddressById
+          responses:
+            
+            "200":
+              description: Adres bilgileri güncellendi
+              content:
+                application/json:
+                  scheme:
+                    $ref: '#/components/schemas/Venue'
+
+            "400":
+              description: Adres bilgilerin geçersiz
+              content:
+                application/json:
+                  scheme:
+                    $ref: '#/components/schemas/Venue'
+
+            "404":
+              description: Adres bulunamadı
+              content:
+                application/json:
+                  scheme:
+                    $ref: '#/components/schemas/Venue'
+
+            "401:
+              description: Kimlik doğrulaması geçersiz
+              content:
+                application/json:
+                  scheme:
+                    $ref: '#/components/schemas/Venue'
+
+            "403:
+              description: Bu işlem için yetkiniz bulunmuyor
+              content:
+                application/json:
+                  scheme:
+                    $ref: '#/components/schemas/Venue'
+
+        delete:
+          tags: 
+          - Adres
+          summary: Adresi Sil
+          operationId: deleteAddress
+          responses:
+
+            "204":
+              description: Adres başarıyla silindi
+
+            "401":
+              description: Kimlik doğrulama başarısız
+              content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+            
+            "403":
+              description: Bu işlem için yetkiniz bulunmuyor
+              content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+
+            "404":
+              description: Adres bulunamadı
+              content:
+              application/json:
+                scheme:
+                  $ref: '#/components/schemas/Error'
+
+    "/restaurant
+      parameters:
+        - name: sort
+            in: query
+            required: false
+            description: Restoranları sıralamak için kullanılır. Yıldızlara göre sıralamak için 'stars' gönderin.
+            schema:
+              type: string
+              enum: 
+                - stars
+            example: "stars"
+
+      get:
+        tags: 
+          - Restoran
+        summary: Restoranları yıldız sayısı sıralamasına göre getir
+        operationId: getRestoranByStars
+        responses:
+
+          "200":
+            description: Restoranlar başarıyla getirildi
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Comment'
+
+      get:
+        
+            
+          
+                    
+
+
+        
+            
+
+              
+
+          
+
+                
+
+                  
+          
+          
+        
+        
