@@ -15,7 +15,8 @@ info:
     
     ## Özellikler
     - Kullanıcı yönetimi
-    - 
+    - Hesap işlemleri
+    - Restoran işlemleri
     - Sipariş işlemleri
     - JWT tabanlı kimlik doğrulama
   version: 1.0.0
@@ -32,7 +33,7 @@ servers:
     description: Production server
   - url: https://staging-api.yazmuh.com/v1
     description: Staging server
-  - url: http://localhost:3000/v1
+  - url: http://localhost:3000
     description: Development server
 
 tags:
@@ -622,6 +623,4 @@ components:
           example:
             code: "FORBIDDEN"
             message: "Bu işlem için yetkiniz bulunmamaktadır"
-``
 
-```
