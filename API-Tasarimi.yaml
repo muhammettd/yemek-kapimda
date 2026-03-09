@@ -16,7 +16,7 @@ servers:
     description: Üretim sunucusu (Production)
   - url: https://staging-api.vercel.com
     description: Test sunucusu (Staging)
-  - url: https://localhost:3000
+  - url: http://localhost:3000
     description: Yerel geliştirme sunucusu (Development)
 
 tags:
@@ -33,7 +33,6 @@ security:
   - BearerAuth: []
 
 paths: 
-
   /auth/register:
     post:
       tags:
@@ -45,30 +44,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VenueInput'
+              $ref: '#/components/schemas/CreateUserRequest'
       responses:
-        "201":
+        '201':
           description: Kullanıcı başarıyla kayıt oldu
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VenueInput'
-        "400":
-          description: Geçeriz bilgiler
-          content: 
-            application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
-
-        "409":
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Geçersiz bilgiler
+        '409':
           description: Bu email zaten kayıtlı
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/VenueInput'
   
-  
-  "auth/login:
+  /auth/login:
     post:
       tags: 
         - Kimlik
@@ -79,277 +68,358 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VenueInput'
+              $ref: '#/components/schemas/LoginUserRequest'
       responses:
-        "200":
+        '200':
           description: Kullanıcı girişi yapıldı.
           content:
             application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
-
-        "400":
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
           description: Email ve şifre boş bırakılamaz.
-          content:
-            application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
+        '401':
+          description: Email veya şifre geçersiz.
 
-        "401":
-          description: Email veya şifre geçersiz
-          content:
-            application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
-
-
-    "/account/profile/{userId}:
-      parameters:
+  /account/profile/{userId}:
+    parameters:
       - name: userId
         in: path
         required: true
         description: Kullanıcının benzersiz kimlik numarası
         schema:
-          type: long
+          type: integer
+          format: int64
         example: 1
-      
-      get:
-        tags: 
-          - Profil
-        summary: Kullanıcının profilini getir
-        operationId: getProfileByUserId
-        responses:
-          "200":
-            description: Profil başarıyla getirildi
-            content:
-              application/json:
-                scheme:
-                  $ref: '#/components/schemas/VenueInput'
-
-          "404":
-          description: Kullanıcı bulunamadı
+        
+    get:
+      tags: 
+        - Profil
+      summary: Kullanıcının profilini getir
+      operationId: getProfileByUserId
+      responses:
+        '200':
+          description: Profil başarıyla getirildi
           content:
             application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
-
-          "400":
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
           description: Girilen id geçersiz
-          content:
-            application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
-
-        put:
-         tags: 
-          - Profil
-        summary: Kullanıcının profil bilgilerini güncelle
-        operationId: updateProfileById
-        responses:
-          "200":
-            description: Profil bilgileri başarıyla güncellendi
-            content:
-              application/json:
-                scheme:
-                  $ref: '#/components/schemas/VenueInput'
-
-          "401":
-            description: Kimlik doğrulama başarısız
-            content:
-              application/json:
-                scheme:
-                  $ref: '#/components/schemas/VenueInput'
-
-          "400":
-            description: Girilen id geçersiz
-            content:
-              application/json:
-                scheme:
-                  $ref: '#/components/schemas/VenueInput'
-
-          "403":
-            description: Bu işlem için yetkiniz geçersiz
-            content:
-              application/json:
-                scheme:
-                  $ref: '#/components/schemas/VenueInput'
-
-           "404":
+        '404':
           description: Kullanıcı bulunamadı
-          content:
-            application/json:
-              scheme:
-                $ref: '#/components/schemas/VenueInput'
 
-    "/account/address:
-      post:
-        tags: 
-        - Adres
-        summary: Hesaba adres ekle
-        operationId: createAddress
-        requestBody:
-          required: true
+    put:
+      tags: 
+        - Profil
+      summary: Kullanıcının profil bilgilerini güncelle
+      operationId: updateProfileById
+      requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/VenueInput'
-        responses:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: Profil bilgileri başarıyla güncellendi
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Girilen id geçersiz
+        '401':
+          description: Kimlik doğrulama başarısız
+        '403':
+          description: Bu işlem için yetkiniz geçersiz
+        '404':
+          description: Kullanıcı bulunamadı
 
-          "201":
-            description: Adres eklendi.
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Venue'
-
-           "400":
-              description: Geçersiz adres bilgileri
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Error'
-
-           "401":
-              description: Önce giriş yapmalısın
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Error'
-
-            "403":
-              description: Bu işlem için yetkiniz yetersiz.
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Error'
-      
-      "/account/address/{addressId}:
-        parameters:
-          - name: addressId
-            in: path
-            required: true
-            description: Adresin benzersiz kimlik numarası
+  /account/address:
+    post:
+      tags: 
+        - Adres
+      summary: Hesaba adres ekle
+      operationId: createAddress
+      requestBody:
+        required: true
+        content:
+          application/json:
             schema:
-              type: long
+              $ref: '#/components/schemas/CreateAddressRequest'
+      responses:
+        '201':
+          description: Adres eklendi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Adres'
+        '400':
+          description: Geçersiz adres bilgileri
+        '401':
+          description: Önce giriş yapmalısın
+        '403':
+          description: Bu işlem için yetkiniz yetersiz.
+      
+  /account/address/{addressId}:
+    parameters:
+      - name: addressId
+        in: path
+        required: true
+        description: Adresin benzersiz kimlik numarası
+        schema:
+          type: integer
+          format: int64
         example: 1  
 
-        put:
-          tags: 
-          - Adres
-          summary: Adres bilgilerini güncelle
-          operationId: updateAddressById
-          responses:
-            
-            "200":
-              description: Adres bilgileri güncellendi
-              content:
-                application/json:
-                  scheme:
-                    $ref: '#/components/schemas/Venue'
+    put:
+      tags: 
+        - Adres
+      summary: Adres bilgilerini güncelle
+      operationId: updateAddressById
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAddressRequest'
+      responses:
+        '200':
+          description: Adres bilgileri güncellendi
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Adres'
+        '400':
+          description: Adres bilgilerin geçersiz
+        '401':
+          description: Kimlik doğrulaması geçersiz
+        '403':
+          description: Bu işlem için yetkiniz bulunmuyor
+        '404':
+          description: Adres bulunamadı
 
-            "400":
-              description: Adres bilgilerin geçersiz
-              content:
-                application/json:
-                  scheme:
-                    $ref: '#/components/schemas/Venue'
+    delete:
+      tags: 
+        - Adres
+      summary: Adresi Sil
+      operationId: deleteAddress
+      responses:
+        '204':
+          description: Adres başarıyla silindi
+        '401':
+          description: Kimlik doğrulama başarısız
+        '403':
+          description: Bu işlem için yetkiniz bulunmuyor
+        '404':
+          description: Adres bulunamadı
 
-            "404":
-              description: Adres bulunamadı
-              content:
-                application/json:
-                  scheme:
-                    $ref: '#/components/schemas/Venue'
-
-            "401:
-              description: Kimlik doğrulaması geçersiz
-              content:
-                application/json:
-                  scheme:
-                    $ref: '#/components/schemas/Venue'
-
-            "403:
-              description: Bu işlem için yetkiniz bulunmuyor
-              content:
-                application/json:
-                  scheme:
-                    $ref: '#/components/schemas/Venue'
-
-        delete:
-          tags: 
-          - Adres
-          summary: Adresi Sil
-          operationId: deleteAddress
-          responses:
-
-            "204":
-              description: Adres başarıyla silindi
-
-            "401":
-              description: Kimlik doğrulama başarısız
-              content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Error'
-            
-            "403":
-              description: Bu işlem için yetkiniz bulunmuyor
-              content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Error'
-
-            "404":
-              description: Adres bulunamadı
-              content:
-              application/json:
-                scheme:
-                  $ref: '#/components/schemas/Error'
-
-    "/restaurant
+  /restaurant:
+    get:
+      tags: 
+        - Restoran
+      summary: Restoranları getir, sırala ve filtrele
+      operationId: getRestorans
       parameters:
         - name: sort
-            in: query
-            required: false
-            description: Restoranları sıralamak için kullanılır. Yıldızlara göre sıralamak için 'stars' gönderin.
-            schema:
-              type: string
-              enum: 
-                - stars
-            example: "stars"
+          in: query
+          required: false
+          description: Restoranları sıralamak için kullanılır. Yıldızlara göre sıralamak için 'stars' gönderin.
+          schema:
+            type: number
+            enum: 
+              - stars
+          example: "stars"
+        - name: cuisine
+          in: query
+          required: false
+          description: Mutfak türüne göre filtrelemek için 'cuisine' gönderin.
+          schema:
+            type: string
+          example: "Pizza"
+        - name: name
+          in: query
+          required: false
+          description: Restoran isimlerinde arama yapmak için kullanılır.
+          schema:
+            type: string
+          example: "Kebap Evi"
+      responses:
+        '200':
+          description: Restoranlar başarıyla getirildi
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restoran'
 
-      get:
-        tags: 
-          - Restoran
-        summary: Restoranları yıldız sayısı sıralamasına göre getir
-        operationId: getRestoranByStars
-        responses:
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'JWT tabanlı kimlik doğrulama.'
 
-          "200":
-            description: Restoranlar başarıyla getirildi
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Comment'
+  schemas:
+    User:
+      type: object
+      description: Kullanıcıları temsil eden model
+      properties:
+        userId:
+          type: integer
+          format: int64
+          description: Kullanıcıların benzersiz kimlik numarası (otomatik olarak atanır)
+          example: 1
+        name:
+          type: string
+          description: Kullanıcıların ismi
+          example: "Ali"
+        surname:
+          type: string
+          description: Kullanıcıların soyismi
+          example: "Yılmaz"
+        email:
+          type: string
+          description: Kullanıcıların email adresi
+          example: "aliyilmaz@gmail.com"
 
-      get:
-        
-            
-          
-                    
+    Restoran:
+      type: object
+      description: Restoranları temsil eden model
+      properties:
+        restaurantId:
+          type: integer
+          format: int64
+          description: Restoranların benzersiz kimlik numarası (otomatik olarak atanır)
+          example: 2
+        name:
+          type: string
+          description: Restoranların ismi
+          example: "Pizza Dünyası"
+        stars:
+          type: number
+          format: float
+          description: Restoranların yıldız puanı
+          example: 4.4
+        cuisine:
+          type: string
+          description: Restoranların mutfak türü
+          example: "Izgara"
+      
+    Adres:
+      type: object
+      description: Adresi temsil eden model
+      properties:
+        addresId:
+          type: integer
+          format: int64
+          description: Adresin benzersiz kimlik numarası (otomatik olarak atanır)
+          example: 2
+        adresTitle:
+          type: string
+          description: Adresin ev veya iş adresi olduğunu belirtir
+          example: "Ev Adresi"
+        city:
+          type: string
+          description: Adresin bulunduğu il
+          example: "Isparta"
+        district:
+          type: string
+          description: Adresin bulunduğu ilçe
+          example: "Merkez"
+        fullAddress:
+          type: string
+          description: Adresin bulunduğu ek bilgiler mahalle,sokak,bina ismi no
+          example: "Bahçelievler Mahallesi 3000 Sokak"
 
+    CreateUserRequest:
+      type: object
+      description: Kullanıcı kayıt olmak için gönderilecek veri
+      properties:
+        name:
+          type: string
+          description: Kullanıcıların ismi
+          example: "Ali"
+        surname:
+          type: string
+          description: Kullanıcıların soyismi
+          example: "Yılmaz"
+        email:
+          type: string
+          description: Kullanıcıların email adresi
+          example: "aliyilmaz@gmail.com"
+        password:
+          type: string
+          description: Kullanıcıların şifresi
+          example: "ali123"
+      required:
+        - name
+        - surname
+        - email
+        - password
 
-        
-            
+    LoginUserRequest:
+      type: object
+      description: Kullanıcı giriş yapmak için göndereceği veri
+      properties:
+        email:
+          type: string
+          description: Kullanıcıların email adresi
+          example: "aliyilmaz@gmail.com"
+        password:
+          type: string
+          description: Kullanıcıların şifresi
+          example: "ali123"
+      required:
+        - email
+        - password
 
-              
+    CreateAddressRequest:
+      type: object
+      description: Adres oluşturmak için gönderilecek veri
+      properties:
+        addressTitle:
+          type: string
+          description: Adresin ev veya iş adresi olduğunu belirtir
+          example: "Ev Adresi"
+        city:
+          type: string
+          description: Adresin bulunduğu il
+          example: "Isparta"
+        district:
+          type: string
+          description: Adresin bulunduğu ilçe
+          example: "Merkez"
+        fullAddress:
+          type: string
+          description: Adresin bulunduğu ek bilgiler mahalle,sokak,bina ismi no
+          example: "Bahçelievler Mahallesi 3000 Sokak"
+      required:
+        - addressTitle
+        - city
+        - district
+        - fullAddress
 
-          
-
-                
-
-                  
-          
-          
-        
-        
+    UpdateAddressRequest:
+      type: object
+      description: Adres güncellemek için gönderilecek veri
+      properties:
+        addressTitle:
+          type: string
+          description: Adresin ev veya iş adresi olduğunu belirtir
+          example: "Ev Adresi"
+        city:
+          type: string
+          description: Adresin bulunduğu il
+          example: "Isparta"
+        district:
+          type: string
+          description: Adresin bulunduğu ilçe
+          example: "Merkez"
+        fullAddress:
+          type: string
+          description: Adresin bulunduğu ek bilgiler mahalle,sokak,bina ismi no
+          example: "Bahçelievler Mahallesi 3000 Sokak"
