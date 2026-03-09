@@ -89,7 +89,6 @@ paths:
         description: Kullanıcının benzersiz kimlik numarası
         schema:
           type: integer
-          format: int64
         example: 1
         
     get:
@@ -169,8 +168,8 @@ paths:
         required: true
         description: Adresin benzersiz kimlik numarası
         schema:
-          type: integer
-          format: int64
+          type: number
+          format: long
         example: 1  
 
     put:
@@ -270,7 +269,6 @@ components:
       properties:
         userId:
           type: integer
-          format: int64
           description: Kullanıcıların benzersiz kimlik numarası (otomatik olarak atanır)
           example: 1
         name:
@@ -292,7 +290,6 @@ components:
       properties:
         restaurantId:
           type: integer
-          format: int64
           description: Restoranların benzersiz kimlik numarası (otomatik olarak atanır)
           example: 2
         name:
@@ -315,7 +312,6 @@ components:
       properties:
         addresId:
           type: integer
-          format: int64
           description: Adresin benzersiz kimlik numarası (otomatik olarak atanır)
           example: 2
         adresTitle:
