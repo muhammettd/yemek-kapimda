@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: yemek-kapimda
+  datasource:
+    url: jdbc:postgresql://localhost:5432/yemek-kapimda
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: mami123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 10s   # ← ekle
+    socket-timeout: 30s
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:fxePspkTDCUT0XkOKeQpWPP13lOmRIMTaIAN5M4QM0j}
+    expiration-ms: 1209600000
