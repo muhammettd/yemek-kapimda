@@ -31,11 +31,7 @@ export default function LoginPage() {
     return (
         <div className="mx-auto max-w-md">
             <h1 className="text-2xl font-bold text-stone-900">Giriş yap</h1>
-            <p className="mt-1 text-sm text-stone-600">
-                Örnek hesap (SampleDataLoader):{' '}
-                <span className="font-mono text-stone-800">demo@demo.com</span> /{' '}
-                <span className="font-mono text-stone-800">demo123</span>
-            </p>
+            
             <p className="mt-2 text-sm text-stone-600">
                 Hesabın yok mu?{' '}
                 <Link to="/kayit" className="font-medium text-orange-600 hover:text-orange-700">
