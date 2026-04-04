@@ -2,7 +2,7 @@ spring:
   application:
     name: yemek-kapimda
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
+    url: jdbc:postgresql://db.yawuelyhkmbjgzixfslx.supabase.co:5432/postgres?sslmode=require
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: mAMiYazmUh751
