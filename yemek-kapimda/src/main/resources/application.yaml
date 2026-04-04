@@ -2,10 +2,10 @@ spring:
   application:
     name: yemek-kapimda
   datasource:
-    url: jdbc:postgresql://localhost:5432/yemek-kapimda
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: mami123
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
