@@ -1,10 +1,7 @@
 const TOKEN_KEY = 'yk_access_token'
 const USER_KEY = 'yk_user'
 
-/**
- * Boş bırakılırsa istekler aynı origin'e gider; `vite.config.js` içindeki proxy `/api` → backend.
- * Üretimde: `VITE_API_BASE_URL=https://api.example.com`
- */
+
 export function apiBaseUrl() {
     const env = import.meta.env.VITE_API_BASE_URL
     if (env != null && String(env).trim() !== '') {
@@ -13,7 +10,6 @@ export function apiBaseUrl() {
     return ''
 }
 
-/** Tam URL veya (geliştirmede) `/api/...` yolu — proxy ile backend'e gider. */
 export function apiUrl(path) {
     const base = apiBaseUrl()
     const p = path.startsWith('/') ? path : `/${path}`
