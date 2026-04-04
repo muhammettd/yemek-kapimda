@@ -2,10 +2,10 @@ spring:
   application:
     name: yemek-kapimda
   datasource:
-    url: jdbc:postgresql://db.yawuelyhkmbjgzixfslx.supabase.co:5432/postgres?sslmode=require
+    url: jdbc:postgresql://ep-curly-forest-alw2pr0n.c-3.eu-central-1.aws.neon.tech/neondb?sslmode=require
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: mAMiYazmUh751
+    username: neondb_owner
+    password: npg_VQtORbiL5gf4
   jpa:
     hibernate:
       ddl-auto: update
