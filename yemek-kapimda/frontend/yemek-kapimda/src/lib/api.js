@@ -3,11 +3,7 @@ const USER_KEY = 'yk_user'
 
 
 export function apiBaseUrl() {
-    const env = import.meta.env.VITE_API_BASE_URL
-    if (env != null && String(env).trim() !== '') {
-        return String(env).replace(/\/$/, '')
-    }
-    return ''
+    return 'https://yemek-kapimda.onrender.com'
 }
 
 export function apiUrl(path) {
