@@ -105,10 +105,6 @@ export default function ProfilePage() {
                         <dt className="text-sm font-medium text-stone-700">Telefon</dt>
                         <dd className="mt-1 text-stone-900">{user?.phoneNumber ?? '—'}</dd>
                     </div>
-                    <div>
-                        <dt className="text-sm font-medium text-stone-700">Rol</dt>
-                        <dd className="mt-1 text-stone-900">{user?.role ?? '—'}</dd>
-                    </div>
                 </dl>
             </section>
 
