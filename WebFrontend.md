@@ -1,5 +1,5 @@
 **Web Frontend Adresi:** [yemek-kapimda.vercel.app](yemek-kapimda.vercel.app)
-
+Hocam linke tıklayarak olmazsa kopyalayıp denermisiniz
 ## Genel Web Frontend Prensipleri
 
 ### 1. Responsive Tasarım
