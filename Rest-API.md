@@ -37,6 +37,7 @@ Video Lİnki: [https://www.youtube.com/watch?v=cATadRAVmkU](https://www.youtube.
 
 ## 4. Adres Oluşturma
 - **Endpoint:** `POST api/addresses`
+- Authentication: Bearer Token gerekli
 - **Request Body:** 
   ```json
   {
