@@ -18,7 +18,7 @@ Video Lİnki: [https://www.youtube.com/watch?v=cATadRAVmkU](https://www.youtube.
 - **Response:** `201 Created` - Kullanıcı başarıyla oluşturuldu
 
 ## 2. Giriş Yapma
-- **Endpoint:** `POST api/auth/register`
+- **Endpoint:** `POST api/auth/login`
 - **Request Body:** 
   ```json
   {
@@ -48,7 +48,7 @@ Video Lİnki: [https://www.youtube.com/watch?v=cATadRAVmkU](https://www.youtube.
 - **Response:** `201 Created` - Adres başarıyla oluşturuldu
 
 ## 5. Adresi Silme
-- **Endpoint:** `GET api/addresses/{addressId}`
+- **Endpoint:** `DELETE api/addresses/{addressId}`
 - Authentication: Bearer Token gerekli
 - Path Parameters:
   addressId (long, required) - Silincek adresin ID'si
