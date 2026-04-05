@@ -9,10 +9,11 @@ Video Lİnki: [https://www.youtube.com/watch?v=cATadRAVmkU](https://www.youtube.
 - **Request Body:** 
   ```json
   {
-    "email": "kullanici@example.com",
-    "password": "Guvenli123!",
-    "firstName": "Ahmet",
-    "lastName": "Yılmaz"
+    "firstName": "Hakan",
+    "lastName": "Dursun",
+    "email": "hakan@gmail.com",
+    "password": "hakan123",
+    "phoneNumber": "05555555"
   }
   ```
 - **Response:** `201 Created` - Kullanıcı başarıyla oluşturuldu
