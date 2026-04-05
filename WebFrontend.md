@@ -1,1 +1,1 @@
-**Web Frontend Adresi:** [Frontend Link]: yemek-kapimda.vercel.app
+**Web Frontend Adresi:** yemek-kapimda.vercel.app
