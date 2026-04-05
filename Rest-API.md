@@ -68,7 +68,7 @@ Video Lİnki: [https://www.youtube.com/watch?v=cATadRAVmkU](https://www.youtube.
 - Authentication: Bearer Token gerekli
 - **Response:** `200 OK` - Restoranlar başarıyla getirildi.
 
-- ## 8. Filtreleme İçin Mutfak Türlerini Getirme
+## 8. Filtreleme İçin Mutfak Türlerini Getirme
 - **Endpoint:** `GET api/restaurants/cuisines`
 - Authentication: Bearer Token gerekli
 - **Response:** `200 OK` - Mutfak türleri başarıyla getirildi.
