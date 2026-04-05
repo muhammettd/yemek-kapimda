@@ -15,7 +15,7 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
   elasticsearch:
-    uris: http://localhost:9200
+    uris: https://6b8ec2ce32:08b3b74616e338743ebe@elasticsearch-1njrv7e9.us-east-1.bonsaisearch.net
     connection-timeout: 10s
     socket-timeout: 30s
 
