@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = "yemek-kapimda-backend" // Docker'da görünecek uygulamanın adı
+        PORT = "8080"                      // Sunucuda dışarı açılacak port
+    }
+
+    stages {
+        stage('1. Checkout Code') {
+            steps {
+                // 1. Adım: Jenkins, kodları GitHub/GitLab'dan sunucuya indirir
+                checkout scm
+            }
+        }
+
+        stage('2. Build Docker Image') {
+            steps {
+                // 2. Adım: Multi-stage Dockerfile'ı tetikliyoruz.
+                // Maven derlemesi ve .jar oluşturma işi bu komut çalıştığında Docker içinde otomatik yapılacak.
+                sh "docker build -t ${APP_NAME}:latest ."
+            }
+        }
+
+        stage('3. Deploy (Konteyneri Ayağa Kaldır)') {
+            steps {
+                // 3. Adım: Varsa çalışan eski versiyonu durdur ve sil (Hata verirse '|| true' sayesinde pipeline çökmez)
+                sh "docker stop ${APP_NAME} || true"
+                sh "docker rm ${APP_NAME} || true"
+
+                // Yeni derlenen taze imajı sunucuda çalıştır
+                sh "docker run -d -p ${PORT}:8080 --name ${APP_NAME} ${APP_NAME}:latest"
+            }
+        }
+    }
+}
