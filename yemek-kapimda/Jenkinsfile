@@ -18,7 +18,9 @@ pipeline {
             steps {
                 // 2. Adım: Multi-stage Dockerfile'ı tetikliyoruz.
                 // Maven derlemesi ve .jar oluşturma işi bu komut çalıştığında Docker içinde otomatik yapılacak.
-                sh "docker build -t ${APP_NAME}:latest ."
+                dir('yemek-kapimda') {
+                                    sh "docker build -t ${APP_NAME}:latest ."
+                }
             }
         }
 
