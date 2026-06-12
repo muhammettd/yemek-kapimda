@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         APP_NAME = "yemek-kapimda-backend"
-        // Jenkins 8080'i kullandığı için çakışmayı önlemek adına 8081 yapıyoruz
         PORT = "8081"
     }
 
@@ -25,10 +24,10 @@ pipeline {
         stage('3. Deploy (Konteyneri Ayağa Kaldır)') {
             steps {
                 dir('yemek-kapimda') {
-                    // -f (force) parametresi ile takılı kalan konteynerleri zorla siliyoruz
+
                     sh "docker rm -f ${APP_NAME} || true"
 
-                    // Yeni port ayarıyla konteyneri başlatıyoruz
+
                     sh "docker run -d -p ${PORT}:8080 --name ${APP_NAME} ${APP_NAME}:latest"
                 }
             }

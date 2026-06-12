@@ -38,7 +38,6 @@ public class RestaurantSearchDocument {
     @Field(type = FieldType.Keyword)
     private String estimatedDeliveryTime;
 
-    // Restoranın menüsündeki ürün adlarını dokümana gömüyoruz.
     @Field(type = FieldType.Text)
     private List<String> productNames;
 
